@@ -1,9 +1,11 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { Value } from "react-phone-number-input";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
+import { PhoneInput } from "./ui/PhoneInput";
 import { Textarea } from "./ui/Textarea";
 import { Checkbox } from "./ui/Checkbox";
 import { intakeSchema, type IntakeFormData } from "../lib/validation/schemas/intake";
@@ -16,6 +18,7 @@ type IntakeFormProps = {
 export function IntakeForm({ onSubmit, onClear }: IntakeFormProps) {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
@@ -23,6 +26,7 @@ export function IntakeForm({ onSubmit, onClear }: IntakeFormProps) {
     resolver: zodResolver(intakeSchema),
     defaultValues: {
       difficultAccess: false,
+      phone: "",
     },
   });
 
@@ -50,13 +54,19 @@ export function IntakeForm({ onSubmit, onClear }: IntakeFormProps) {
         placeholder="Enter your name"
       />
 
-      <Input
-        id="phone"
-        {...register("phone")}
-        type="tel"
-        label="Phone"
-        error={errors.phone?.message}
-        placeholder="Enter your phone number"
+      <Controller
+        name="phone"
+        control={control}
+        render={({ field }) => (
+          <PhoneInput
+            id="phone"
+            label="Phone"
+            value={(field.value as Value) || undefined}
+            onChange={(value) => field.onChange(value || "")}
+            error={errors.phone?.message}
+            placeholder="Enter your phone number"
+          />
+        )}
       />
 
       <Input
