@@ -1,9 +1,0 @@
-{
-  "name": "John Smith",
-  "phone": "+1234567890",
-  "email": "john.smith@example.com",
-  "address": "123 Main Street, Apt 42, New York, NY 10001",
-  "company": "ABC Renovation LLC",
-  "description": "Need to perform comprehensive apartment renovation. Required demolition of old partitions, wall leveling with plaster, tile installation in bathroom and kitchen, drywall mounting on ceiling, wall painting. Also need to install new PVC windows and perform electrical work to replace old wiring.",
-  "difficultAccess": true
-}
