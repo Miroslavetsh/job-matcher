@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, forwardRef } from "react";
+import clsx from "clsx";
 
 type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -13,9 +14,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           <input
             ref={ref}
             type="checkbox"
-            className={`h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded ${
-              error ? "border-red-500" : ""
-            } ${className}`}
+            className={clsx(
+              "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded",
+              error && "border-red-500",
+              className
+            )}
             {...props}
           />
           {label && (
