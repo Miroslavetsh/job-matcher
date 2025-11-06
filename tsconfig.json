@@ -20,7 +20,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@models/*": ["./src/models/*"]
+      "@models/*": ["./src/models/*"],
+      "@components/*": ["./src/components/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": [
