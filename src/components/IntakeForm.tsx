@@ -3,6 +3,8 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Value } from "react-phone-number-input";
+import { loadExampleIntake } from "@utils/example";
+
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
 import { PhoneInput } from "./ui/PhoneInput";
@@ -45,6 +47,15 @@ export function IntakeForm({
   const handleClear = () => {
     reset();
     onClear?.();
+  };
+
+  const handleLoadExample = async () => {
+    try {
+      const exampleData = await loadExampleIntake();
+      reset(exampleData);
+    } catch (error) {
+      console.error("Failed to load example:", error);
+    }
   };
 
   return (
@@ -120,14 +131,28 @@ export function IntakeForm({
         error={errors.difficultAccess?.message}
       />
 
-      <div className="flex gap-2" role="group" aria-label="Form actions">
+      <div
+        className="flex flex-col sm:flex-row gap-2"
+        role="group"
+        aria-label="Form actions"
+      >
         <Button
           type="submit"
           variant="primary"
           disabled={isLoading}
           aria-label={isLoading ? "Processing match" : "Run matching"}
+          className="flex-1 sm:flex-none"
         >
           {isLoading ? "Processing..." : "Run Matching"}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={handleLoadExample}
+          disabled={isLoading}
+          aria-label="Load example intake data"
+        >
+          Load Example
         </Button>
         <Button
           type="button"

@@ -22,6 +22,8 @@ yarn dev
 # Open http://localhost:3000
 ```
 
+**Quick test:** Click "Load Example" button in the intake form to pre-fill sample data, then click "Run Matching" to see results immediately.
+
 ## Scoring Formula
 
 The matching algorithm uses a weighted scoring system:
@@ -77,4 +79,6 @@ Common synonym mappings (full list in `src/lib/matcher/normalize.ts`):
 - **Frontend**: Client components for UI, server components for pages
 - **Backend**: API route (`/api/match`) handles matching logic and catalogue loading
 - **Algorithm**: Deterministic scoring (no LLM) - see `src/lib/matcher/`
-- **Data**: Catalogue loaded from `public/assets/sample/service_catalog_en.json`
+- **Data**: 
+  - Catalogue: `public/assets/sample/service_catalog_en.json`
+  - Example intake: `public/assets/sample/intake.json`
