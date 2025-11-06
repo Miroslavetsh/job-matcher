@@ -1,108 +1,104 @@
 "use client";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
 import { Textarea } from "./ui/Textarea";
 import { Checkbox } from "./ui/Checkbox";
+import { intakeSchema, type IntakeFormData } from "../lib/validation/schemas/intake";
 
 type IntakeFormProps = {
-  onSubmit: (data: {
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-    company?: string;
-    description: string;
-    difficultAccess: boolean;
-  }) => void;
+  onSubmit: (data: IntakeFormData) => void;
   onClear?: () => void;
 };
 
 export function IntakeForm({ onSubmit, onClear }: IntakeFormProps) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name") as string,
-      phone: formData.get("phone") as string,
-      email: formData.get("email") as string,
-      address: formData.get("address") as string,
-      company: formData.get("company") as string | undefined,
-      description: formData.get("description") as string,
-      difficultAccess: formData.get("difficultAccess") === "on",
-    };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<IntakeFormData>({
+    resolver: zodResolver(intakeSchema),
+    defaultValues: {
+      difficultAccess: false,
+    },
+  });
+
+  const onFormSubmit = (data: IntakeFormData) => {
     onSubmit(data);
   };
 
   const handleClear = () => {
-    const form = document.getElementById("intake-form") as HTMLFormElement;
-    form?.reset();
+    reset();
     onClear?.();
   };
 
   return (
     <form
-      id="intake-form"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onFormSubmit)}
       className="space-y-4"
       noValidate
     >
       <Input
         id="name"
-        name="name"
+        {...register("name")}
         type="text"
         label="Name"
-        required
+        error={errors.name?.message}
         placeholder="Enter your name"
       />
 
       <Input
         id="phone"
-        name="phone"
+        {...register("phone")}
         type="tel"
         label="Phone"
-        required
+        error={errors.phone?.message}
         placeholder="Enter your phone number"
       />
 
       <Input
         id="email"
-        name="email"
+        {...register("email")}
         type="email"
         label="Email"
-        required
+        error={errors.email?.message}
         placeholder="Enter your email"
       />
 
       <Input
         id="address"
-        name="address"
+        {...register("address")}
         type="text"
         label="Address"
-        required
+        error={errors.address?.message}
         placeholder="Enter your address"
       />
 
       <Input
         id="company"
-        name="company"
+        {...register("company")}
         type="text"
         label="Company (optional)"
+        error={errors.company?.message}
         placeholder="Enter company name"
       />
 
       <Textarea
         id="description"
-        name="description"
+        {...register("description")}
         label="Description"
-        required
+        error={errors.description?.message}
         placeholder="Describe your requirements (1-5 sentences)"
       />
 
       <Checkbox
         id="difficultAccess"
-        name="difficultAccess"
+        {...register("difficultAccess")}
         label="Difficult access"
+        error={errors.difficultAccess?.message}
       />
 
       <div className="flex gap-2">
