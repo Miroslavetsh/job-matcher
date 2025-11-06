@@ -89,6 +89,8 @@ export function ResultsTable({ results }: ResultsTableProps) {
             variant="secondary"
             onClick={toggleSort}
             className="whitespace-nowrap flex-1 sm:flex-none"
+            aria-label={`Sort by score ${sortDirection === "desc" ? "descending" : "ascending"}`}
+            aria-pressed={false}
           >
             Sort: {sortDirection === "desc" ? "High→Low" : "Low→High"}
           </Button>
@@ -97,6 +99,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
             variant="primary"
             onClick={handleDownloadJSON}
             className="whitespace-nowrap flex-1 sm:flex-none"
+            aria-label="Download results as JSON"
           >
             Download JSON
           </Button>
@@ -111,19 +114,35 @@ export function ResultsTable({ results }: ResultsTableProps) {
         <div className="overflow-x-auto -mx-6 sm:mx-0">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 dark:ring-gray-700 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <table
+                className="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+                role="table"
+                aria-label="Match results"
+              >
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
+                    <th
+                      scope="col"
+                      className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider"
+                    >
                       Position
                     </th>
-                    <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
+                    <th
+                      scope="col"
+                      className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider"
+                    >
                       Short Name
                     </th>
-                    <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
+                    <th
+                      scope="col"
+                      className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider"
+                    >
                       Score
                     </th>
-                    <th className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
+                    <th
+                      scope="col"
+                      className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider"
+                    >
                       Why
                     </th>
                   </tr>

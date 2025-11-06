@@ -52,6 +52,7 @@ export function IntakeForm({
       onSubmit={handleSubmit(onFormSubmit)}
       className="space-y-4"
       noValidate
+      aria-label="Client intake form"
     >
       <Input
         id="name"
@@ -119,8 +120,13 @@ export function IntakeForm({
         error={errors.difficultAccess?.message}
       />
 
-      <div className="flex gap-2">
-        <Button type="submit" variant="primary" disabled={isLoading}>
+      <div className="flex gap-2" role="group" aria-label="Form actions">
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={isLoading}
+          aria-label={isLoading ? "Processing match" : "Run matching"}
+        >
           {isLoading ? "Processing..." : "Run Matching"}
         </Button>
         <Button
@@ -128,6 +134,7 @@ export function IntakeForm({
           variant="secondary"
           onClick={handleClear}
           disabled={isLoading}
+          aria-label="Clear form"
         >
           Clear
         </Button>

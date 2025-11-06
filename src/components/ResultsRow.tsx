@@ -24,19 +24,34 @@ export function ResultsRow({ result, searchTerm = "" }: ResultsRowProps) {
   }
 
   return (
-    <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-      <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+    <tr
+      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+      role="row"
+    >
+      <td
+        className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100"
+        role="cell"
+      >
         {highlightText(result.position.position_number.toString(), searchTerm)}
       </td>
-      <td className="px-4 sm:px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+      <td
+        className="px-4 sm:px-6 py-4 text-sm text-gray-900 dark:text-gray-100"
+        role="cell"
+      >
         <div className="max-w-xs truncate sm:max-w-none sm:whitespace-normal">
           {highlightText(result.position.short_name_en, searchTerm)}
         </div>
       </td>
-      <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">
+      <td
+        className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100"
+        role="cell"
+      >
         {highlightText(result.score.toFixed(2), searchTerm)}
       </td>
-      <td className="px-4 sm:px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+      <td
+        className="px-4 sm:px-6 py-4 text-sm text-gray-500 dark:text-gray-400"
+        role="cell"
+      >
         <div className="space-y-1">
           {reasons.map((reason, idx) => (
             <div key={idx}>{highlightText(reason, searchTerm)}</div>

@@ -25,6 +25,14 @@ export function HomeComponent() {
       const matchedResults = await matchIntake(data);
       setResults(matchedResults);
       setPageState("ready");
+
+      setTimeout(() => {
+        const resultsSection = document.getElementById("results-section");
+        if (resultsSection) {
+          resultsSection.focus();
+          resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
     } catch (error) {
       setPageState("error");
       setErrorMessage(
@@ -47,6 +55,7 @@ export function HomeComponent() {
             }}
             variant="primary"
             className="mt-4"
+            aria-label="Try again after error"
           >
             Try Again
           </Button>
@@ -72,16 +81,29 @@ export function HomeComponent() {
               isLoading={pageState === "loading"}
             />
           </div>
-          <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-md dark:shadow-gray-900">
+          <div
+            id="results-section"
+            className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-md dark:shadow-gray-900"
+            tabIndex={-1}
+            aria-live="polite"
+            aria-atomic="true"
+          >
             <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 sm:mb-6">
               Results
             </h2>
             {pageState === "loading" ? (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <div
+                className="text-center py-8 text-gray-500 dark:text-gray-400"
+                role="status"
+                aria-live="polite"
+              >
                 Processing match...
               </div>
             ) : pageState === "empty" && results.length === 0 ? (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <div
+                className="text-center py-8 text-gray-500 dark:text-gray-400"
+                role="status"
+              >
                 No results yet. Fill in the form and click "Run Matching".
               </div>
             ) : (
