@@ -1,13 +1,23 @@
 export interface Position {
-  position: string;
-  shortName: string;
+  position_number: number;
+  short_name_de: string;
+  short_name_en: string;
   unit: string;
-  description: string;
-  category: string;
-  tags: string[];
+  description_de: string;
+  description_en: string;
+  hero: boolean;
 }
 
-export type Catalogue = Position[];
+export interface Trade {
+  code: string;
+  name_de: string;
+  name_en: string;
+  positions: Position[];
+}
+
+export interface Catalogue {
+  trades: Trade[];
+}
 
 export interface IntakeData {
   name: string;
@@ -23,7 +33,7 @@ export interface IntakeForm extends IntakeData {}
 
 export interface MatchReason {
   matchedKeywords: string[];
-  matchedTags: string[];
+  matchedTags?: string[];
   fuzzyMatch: boolean;
   categoryBoost: boolean;
   boostedCategory?: string;
