@@ -20,11 +20,10 @@ export function HomeComponent() {
 
   const handleFormSubmit = async (data: IntakeFormData) => {
     try {
-      setPageState("loading");
       setErrorMessage("");
+      setPageState("loading");
       const matchedResults = await matchIntake(data);
       setResults(matchedResults);
-      setPageState("ready");
 
       setTimeout(() => {
         const resultsSection = document.getElementById("results-section");
@@ -34,7 +33,6 @@ export function HomeComponent() {
         }
       }, 100);
     } catch (error) {
-      setPageState("error");
       setErrorMessage(
         error instanceof Error ? error.message : "Failed to match"
       );

@@ -17,7 +17,13 @@ export const useAppStore = create<AppStore>((set) => ({
       pageState: results.length === 0 ? "empty" : "ready",
     }),
   setPageState: (pageState) => set({ pageState }),
-  setErrorMessage: (errorMessage) => set({ errorMessage, pageState: "error" }),
+  setErrorMessage: (errorMessage) => {
+    if (errorMessage) {
+      set({ errorMessage, pageState: "error" });
+    } else {
+      set({ errorMessage: "" });
+    }
+  },
   clearResults: () => set({ results: [], pageState: "ready" }),
   resetError: () => set({ errorMessage: "", pageState: "ready" }),
 }));
